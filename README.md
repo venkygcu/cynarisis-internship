@@ -7,7 +7,7 @@ This repository contains a Python and NumPy exercise for the AI/ML internship tr
 ```bash
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
-.venv\Scripts\python.exe src/numpy_fundamentals.py
+.venv\Scripts\python.exe src/w1d1.py
 ```
 
 ## Included work
@@ -17,7 +17,7 @@ python -m venv .venv
 - Broadcasting and vectorized operations without Python loops
 - Matrix multiplication using `@`
 - CSV-based descriptive stats with mean, standard deviation, and correlation
-- Notebook-ready examples in `notebooks/numpy_fundamentals.ipynb`
+- Notebook-ready examples in `notebooks/w1d1.ipynb`
 
 ## Git branch
 
