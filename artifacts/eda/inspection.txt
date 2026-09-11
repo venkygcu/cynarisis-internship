@@ -1,70 +1,48 @@
-df.describe()
-       Country         Year      Status  Life expectancy   Adult Mortality  infant deaths    Alcohol  percentage expenditure  Hepatitis B      Measles        BMI   under-five deaths       Polio  Total expenditure  Diphtheria    HIV/AIDS          GDP    Population   thinness  1-19 years   thinness 5-9 years  Income composition of resources  Schooling
-count       11    11.000000          11         11.000000        11.000000      11.000000  11.000000               11.000000    11.000000     11.000000  11.000000           11.000000  11.000000          11.000000    11.000000  11.000000    11.000000  1.100000e+01              11.000000            11.000000                        11.000000  11.000000
-unique       1          NaN           1               NaN              NaN            NaN        NaN                     NaN          NaN           NaN        NaN                 NaN        NaN                NaN          NaN        NaN          NaN           NaN                    NaN                  NaN                              NaN        NaN
-top      India          NaN  Developing               NaN              NaN            NaN        NaN                     NaN          NaN           NaN        NaN                 NaN        NaN                NaN          NaN        NaN          NaN           NaN                    NaN                  NaN                              NaN        NaN
-freq        11          NaN          11               NaN              NaN            NaN        NaN                     NaN          NaN           NaN        NaN                 NaN        NaN                NaN          NaN        NaN          NaN           NaN                    NaN                  NaN                              NaN        NaN
-mean       NaN  2009.000000         NaN         66.000000       116.636364    1268.818182   2.264545               41.483586    30.272727  43188.545455  15.454545         1681.818182  72.545455           4.356364    68.090909   0.245455   900.009910  5.943872e+08              27.000000            27.818182                         0.562727  10.409091
-std        NaN     3.316625         NaN          1.339403        93.550278     216.091100   0.800180               29.527095    27.018849  19552.335392   1.683665          306.000594   8.189794           0.142005    22.006611   0.052223   610.890901  5.642646e+08               0.141421             0.252262                         0.029574   0.827592
-min        NaN  2004.000000         NaN         64.000000         2.000000     957.000000   1.200000                0.844186     6.000000  13822.000000  13.000000         1200.000000  58.000000           4.220000     7.000000   0.200000    19.317765  1.239869e+07              26.800000            27.400000                         0.518000   9.200000
-25%        NaN  2006.500000         NaN         65.000000        24.500000    1100.000000   1.480000               16.286389     6.500000  32546.000000  14.150000         1450.000000  66.500000           4.265000    64.500000   0.200000   369.742375  1.230754e+08              26.900000            27.650000                         0.541000   9.800000
-50%        NaN  2009.000000         NaN         66.000000       184.000000    1300.000000   2.500000               43.030433    29.000000  41144.000000  15.400000         1700.000000  73.000000           4.330000    74.000000   0.200000   991.484634  1.278562e+08              27.000000            27.800000                         0.563000  10.400000
-75%        NaN  2011.500000         NaN         67.050000       194.500000    1450.000000   3.035000               64.787773    41.000000  55815.500000  16.700000         1950.000000  79.000000           4.385000    82.000000   0.300000  1449.590391  1.153048e+09              27.100000            28.000000                         0.585000  11.050000
-max        NaN  2014.000000         NaN         68.000000       214.000000    1600.000000   3.110000               86.521539    79.000000  79563.000000  18.100000         2100.000000  84.000000           4.690000    85.000000   0.300000  1573.118890  1.293859e+09              27.200000            28.200000                         0.607000  11.600000
+=== Dataset Overview ===
+ student_id      name  age  math  python  ml_score  attended
+          1 Student_1   23    70      62      89.0      True
+          2 Student_2   24    82      48      79.0      True
+          3 Student_3   22    61      69      43.0      True
+          4 Student_4   24    71      58       NaN      True
+          5 Student_5   24    93      94      45.0      True
 
+Shape: (20, 7)
+
+df.describe()
+        student_id       name        age       math    python   ml_score attended
+count     20.00000         20  20.000000  20.000000  20.00000  17.000000       20
+unique         NaN         20        NaN        NaN       NaN        NaN        2
+top            NaN  Student_1        NaN        NaN       NaN        NaN     True
+freq           NaN          1        NaN        NaN       NaN        NaN       16
+mean      10.50000        NaN  23.000000  76.050000  69.20000  71.058824      NaN
+std        5.91608        NaN   1.337712  14.251408  16.52303  16.184370      NaN
+min        1.00000        NaN  21.000000  52.000000  46.00000  43.000000      NaN
+25%        5.75000        NaN  22.000000  64.750000  56.75000  57.000000      NaN
+50%       10.50000        NaN  23.000000  75.000000  66.50000  73.000000      NaN
+75%       15.25000        NaN  24.000000  88.750000  82.00000  83.000000      NaN
+max       20.00000        NaN  25.000000  98.000000  97.00000  93.000000      NaN
 
 df.info()
 <class 'pandas.DataFrame'>
-RangeIndex: 11 entries, 0 to 10
-Data columns (total 22 columns):
- #   Column                           Non-Null Count  Dtype  
----  ------                           --------------  -----  
- 0   Country                          11 non-null     str    
- 1   Year                             11 non-null     int64  
- 2   Status                           11 non-null     str    
- 3   Life expectancy                  11 non-null     float64
- 4   Adult Mortality                  11 non-null     int64  
- 5   infant deaths                    11 non-null     int64  
- 6   Alcohol                          11 non-null     float64
- 7   percentage expenditure           11 non-null     float64
- 8   Hepatitis B                      11 non-null     int64  
- 9   Measles                          11 non-null     int64  
- 10   BMI                             11 non-null     float64
- 11  under-five deaths                11 non-null     int64  
- 12  Polio                            11 non-null     int64  
- 13  Total expenditure                11 non-null     float64
- 14  Diphtheria                       11 non-null     int64  
- 15   HIV/AIDS                        11 non-null     float64
- 16  GDP                              11 non-null     float64
- 17  Population                       11 non-null     float64
- 18   thinness  1-19 years            11 non-null     float64
- 19   thinness 5-9 years              11 non-null     float64
- 20  Income composition of resources  11 non-null     float64
- 21  Schooling                        11 non-null     float64
-dtypes: float64(12), int64(8), str(2)
-memory usage: 2.2 KB
-
+RangeIndex: 20 entries, 0 to 19
+Data columns (total 7 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   student_id  20 non-null     int64
+ 1   name        20 non-null     str
+ 2   age         20 non-null     int32
+ 3   math        20 non-null     int32
+ 4   python      20 non-null     int32
+ 5   ml_score    17 non-null     float64
+ 6   attended    20 non-null     bool
+dtypes: bool(1), float64(1), int32(3), int64(1), str(1)
+memory usage: 1.0 KB
 
 df.isnull().sum()
-Country                            0
-Year                               0
-Status                             0
-Life expectancy                    0
-Adult Mortality                    0
-infant deaths                      0
-Alcohol                            0
-percentage expenditure             0
-Hepatitis B                        0
-Measles                            0
- BMI                               0
-under-five deaths                  0
-Polio                              0
-Total expenditure                  0
-Diphtheria                         0
- HIV/AIDS                          0
-GDP                                0
-Population                         0
- thinness  1-19 years              0
- thinness 5-9 years                0
-Income composition of resources    0
-Schooling                          0
+student_id    0
+name          0
+age           0
+math          0
+python        0
+ml_score      3
+attended      0

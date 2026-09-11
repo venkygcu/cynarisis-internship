@@ -1,44 +1,69 @@
-"""Reproducible exploratory data analysis for the India life-expectancy data.
+"""W1D4 EDA on a reproducible student-performance dataset.
 
 Run from the repository root:
     .venv\\Scripts\\python.exe src\\w1d4_eda.py
 
-The script prints the required Pandas inspection calls and writes the figures and
-text summary to ``artifacts/eda``.  It deliberately uses only the approved local
-Python ML/data stack; MLOps tools belong after the data-quality issues identified
-here have been resolved, not inside exploratory analysis itself.
+For Pyodide, load packages first:
+    import pyodide
+    await pyodide.loadPackage(["pandas", "numpy", "matplotlib"])
 """
 
 from __future__ import annotations
 
 from contextlib import redirect_stdout
+from io import StringIO
 import os
 from pathlib import Path
 
 os.environ.setdefault("MPLBACKEND", "Agg")
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 
-DATA_PATH = Path("data/india_life_expectancy.csv")
 OUTPUT_DIR = Path("artifacts/eda")
 
 
-def save_required_inspections(df: pd.DataFrame) -> None:
-    """Run and persist describe, info, and missing-value inspection output."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = OUTPUT_DIR / "inspection.txt"
-    with output_path.open("w", encoding="utf-8") as report, redirect_stdout(report):
-        print("df.describe()")
-        print(df.describe(include="all").to_string())
-        print("\n\ndf.info()")
-        df.info()
-        print("\n\ndf.isnull().sum()")
-        print(df.isnull().sum().to_string())
+def create_student_dataset() -> pd.DataFrame:
+    """Create the supplied 20-student dataset with reproducible missing values."""
+    np.random.seed(42)
+    df = pd.DataFrame(
+        {
+            "student_id": range(1, 21),
+            "name": [f"Student_{number}" for number in range(1, 21)],
+            "age": np.random.randint(20, 26, 20),
+            "math": np.random.randint(50, 100, 20),
+            "python": np.random.randint(45, 100, 20),
+            "ml_score": np.random.randint(40, 100, 20),
+            "attended": np.random.choice([True, False], 20, p=[0.8, 0.2]),
+        }
+    )
+    df.loc[[3, 7, 14], "ml_score"] = np.nan
+    return df
 
-    # Also show the three required calls directly in a terminal/notebook run.
-    print("df.describe()")
+
+def inspect_data(df: pd.DataFrame) -> None:
+    """Run, print, and save the three required EDA inspection commands."""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    with (OUTPUT_DIR / "inspection.txt").open("w", encoding="utf-8") as report:
+        with redirect_stdout(report):
+            print("=== Dataset Overview ===")
+            print(df.head().to_string(index=False))
+            print(f"\nShape: {df.shape}")
+            print("\ndf.describe()")
+            print(df.describe(include="all").to_string())
+            print("\ndf.info()")
+            info_output = StringIO()
+            df.info(buf=info_output)
+            print("\n".join(line.rstrip() for line in info_output.getvalue().splitlines()))
+            print("\ndf.isnull().sum()")
+            print(df.isnull().sum().to_string())
+
+    print("=== Dataset Overview ===")
+    print(df.head())
+    print(f"\nShape: {df.shape}")
+    print("\ndf.describe()")
     print(df.describe(include="all"))
     print("\ndf.info()")
     df.info()
@@ -46,55 +71,77 @@ def save_required_inspections(df: pd.DataFrame) -> None:
     print(df.isnull().sum())
 
 
+def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Impute the ML median and create the requested average-score grade."""
+    cleaned = df.copy()
+    cleaned["ml_score"] = cleaned["ml_score"].fillna(cleaned["ml_score"].median())
+    cleaned["avg_score"] = cleaned[["math", "python", "ml_score"]].mean(axis=1).round(1)
+    cleaned["grade"] = pd.cut(
+        cleaned["avg_score"],
+        bins=[0, 59, 74, 89, 100],
+        labels=["F", "C", "B", "A"],
+        include_lowest=True,
+    )
+    return cleaned
+
+
 def plot_numeric_distributions(df: pd.DataFrame) -> None:
-    """Save one histogram per numeric feature in a compact grid."""
+    """Plot a distribution for every numeric column, including engineered scores."""
     numeric = df.select_dtypes(include="number")
-    axes = numeric.hist(bins=8, figsize=(16, 18), edgecolor="white", color="#2c7fb8")
+    axes = numeric.hist(bins=8, figsize=(14, 10), edgecolor="white", color="#2c7fb8")
     for axis in axes.flat:
-        axis.set_ylabel("Records")
-    plt.suptitle("India life expectancy: numeric feature distributions", y=1.01)
+        axis.set_ylabel("Students")
+    plt.suptitle("Student dataset: numeric-column distributions", y=1.01)
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "numeric_distributions.png", dpi=180, bbox_inches="tight")
     plt.close()
 
 
 def plot_correlation_heatmap(df: pd.DataFrame) -> None:
-    """Save a labeled Pearson-correlation heatmap without an extra dependency."""
+    """Plot Pearson correlations for numeric variables."""
     correlation = df.select_dtypes(include="number").corr()
-    fig, axis = plt.subplots(figsize=(15, 12))
+    fig, axis = plt.subplots(figsize=(9, 7))
     image = axis.imshow(correlation, cmap="coolwarm", vmin=-1, vmax=1)
-    axis.set_xticks(range(len(correlation.columns)), correlation.columns, rotation=90)
-    axis.set_yticks(range(len(correlation.index)), correlation.index)
+    axis.set_xticks(range(len(correlation)), correlation.columns, rotation=45, ha="right")
+    axis.set_yticks(range(len(correlation)), correlation.index)
     fig.colorbar(image, ax=axis, label="Pearson correlation")
-    axis.set_title("Correlation heatmap: India life-expectancy features")
+    axis.set_title("Student dataset: correlation heatmap")
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "correlation_heatmap.png", dpi=180, bbox_inches="tight")
     plt.close(fig)
 
 
 def plot_top_categories(df: pd.DataFrame) -> None:
-    """Save top-ten count charts for every categorical field."""
-    categories = df.select_dtypes(exclude="number")
-    fig, axes = plt.subplots(1, len(categories.columns), figsize=(7 * len(categories.columns), 5))
-    if len(categories.columns) == 1:
-        axes = [axes]
-    for axis, column in zip(axes, categories.columns):
-        counts = categories[column].value_counts().head(10).sort_values()
-        counts.plot.barh(ax=axis, color="#41ab5d")
+    """Plot the top ten counts for the meaningful categorical features."""
+    columns = ["grade", "attended"]
+    fig, axes = plt.subplots(1, len(columns), figsize=(10, 4))
+    for axis, column in zip(axes, columns):
+        df[column].value_counts().head(10).sort_values().plot.barh(ax=axis, color="#41ab5d")
         axis.set_title(f"Top categories: {column}")
-        axis.set_xlabel("Count")
-        axis.set_ylabel(column)
+        axis.set_xlabel("Students")
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "top_10_category_counts.png", dpi=180, bbox_inches="tight")
     plt.close(fig)
 
 
+def print_feature_summary(df: pd.DataFrame) -> None:
+    """Print the assignment's requested grade, ranking, and attendance summaries."""
+    print("\n=== Grade Distribution ===")
+    print(df["grade"].value_counts().sort_index())
+    print("\n=== Top 5 Students ===")
+    print(df.nlargest(5, "avg_score")[["name", "avg_score", "grade"]])
+    print("\n=== Attendees vs Non-Attendees ===")
+    print(df.groupby("attended")["avg_score"].agg(["mean", "count"]).round(2))
+
+
 def main() -> None:
-    df = pd.read_csv(DATA_PATH)
-    save_required_inspections(df)
+    raw_df = create_student_dataset()
+    inspect_data(raw_df)
+    df = engineer_features(raw_df)
     plot_numeric_distributions(df)
     plot_correlation_heatmap(df)
     plot_top_categories(df)
+    print_feature_summary(df)
     print(f"\nSaved EDA artifacts to: {OUTPUT_DIR}")
 
 
