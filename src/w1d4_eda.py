@@ -22,7 +22,8 @@ import numpy as np
 import pandas as pd
 
 
-OUTPUT_DIR = Path("artifacts/eda")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_DIR = PROJECT_ROOT / "artifacts" / "eda"
 
 
 def create_student_dataset() -> pd.DataFrame:
