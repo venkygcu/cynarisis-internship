@@ -17,7 +17,7 @@ python -m venv .venv
 - Broadcasting and vectorized operations without Python loops
 - Matrix multiplication using `@`
 - CSV-based descriptive stats with mean, standard deviation, and correlation
-- Notebook-ready examples in `notebooks/w1d1.ipynb`
+- Notebook-ready examples in `week1_Notebooks/w1d1.ipynb`
 
 ## W1D2 Included Work
 
@@ -25,11 +25,11 @@ python -m venv .venv
 - Pandas inspection of shape, dtypes, missing values, and duplicates
 - Column normalization, numeric coercion, and duplicate removal
 - Cleaned CSV and Parquet exports in `data/w1d2_cleaned_india_life_expectancy.csv` and `data/w1d2_cleaned_india_life_expectancy.parquet`
-- Notebook-ready workflow in `notebooks/w1d2.ipynb`
+- Notebook-ready workflow in `week1_Notebooks/w1d2.ipynb`
 
 ## W1D3 Included Work
 
-- Reusable data loading and cleaning workflow in `notebooks/w1d3.ipynb`
+- Reusable data loading and cleaning workflow in `week1_Notebooks/w1d3.ipynb`
 - Raw data inspection and validation checks for the India dataset slice
 - Cleaned CSV and Parquet exports in `data/w1d3_cleaned_india_life_expectancy.csv` and `data/w1d3_cleaned_india_life_expectancy.parquet`
 - Notebook execution that stays runnable with an offline fallback dataset

@@ -16,10 +16,10 @@ This week I established a reproducible Python data-analysis workspace and comple
 
 | Day | Deliverable | Evidence |
 | --- | --- | --- |
-| W1D1 | NumPy fundamentals script and notebook | `src/w1d1.py`, `notebooks/w1d1.ipynb` |
-| W1D2-W1D3 | India life-expectancy data cleaning workflow and exports | `notebooks/w1d2.ipynb`, `notebooks/w1d3.ipynb`, `data/w1d*_cleaned_*` |
-| W1D4 | Student-performance EDA, 200-word narrative, and plots | `src/w1d4_eda.py`, `notebooks/w1d4.ipynb`, `artifacts/eda/` |
-| W1D5 | Matplotlib/Seaborn visualization module, tests, notebook, and charts | `src/w1d5_visualization.py`, `tests/test_w1d5_visualization.py`, `notebooks/w1d5.ipynb`, `artifacts/w1d5_visualization/` |
+| W1D1 | NumPy fundamentals script and notebook | `src/w1d1.py`, `week1_Notebooks/w1d1.ipynb` |
+| W1D2-W1D3 | India life-expectancy data cleaning workflow and exports | `week1_Notebooks/w1d2.ipynb`, `week1_Notebooks/w1d3.ipynb`, `data/w1d*_cleaned_*` |
+| W1D4 | Student-performance EDA, 200-word narrative, and plots | `src/w1d4_eda.py`, `week1_Notebooks/w1d4.ipynb`, `artifacts/eda/` |
+| W1D5 | Matplotlib/Seaborn visualization module, tests, notebook, and charts | `src/w1d5_visualization.py`, `tests/test_w1d5_visualization.py`, `week1_Notebooks/w1d5.ipynb`, `artifacts/w1d5_visualization/` |
 
 ## Validation and MLOps alignment
 
