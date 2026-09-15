@@ -1,0 +1,6 @@
+Feature,F-Score,Why it matters
+Sex_male,306.59324889518797,Sex was strongly associated with evacuation priority.
+Pclass,97.83585348061223,Class influenced cabin location and access to lifeboats.
+Fare,58.314907281984595,Ticket fare proxies passenger class and access to resources.
+Embarked_S,25.60425665767061,This feature has a strong individual statistical association with survival in the training data.
+parch,5.066904147253763,Parents/children aboard captures family travel patterns.

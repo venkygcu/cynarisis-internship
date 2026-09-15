@@ -1,0 +1,14 @@
+{
+  "imputer_numeric": "median",
+  "imputer_categorical": "most_frequent",
+  "scalers_compared": "StandardScaler, MinMaxScaler, RobustScaler",
+  "pipeline_scaler": "RobustScaler",
+  "selector": "SelectKBest(f_classif, k=5)",
+  "top_features": [
+    "Sex_male",
+    "Pclass",
+    "Fare",
+    "Embarked_S",
+    "parch"
+  ]
+}
