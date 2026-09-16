@@ -3,3 +3,5 @@ __pycache__/
 .ipynb_checkpoints/
 *.pyc
 .DS_Store
+outputs/w2d3_smote/
+week2_Notebooks/mlruns/
