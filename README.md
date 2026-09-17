@@ -34,6 +34,14 @@ python -m venv .venv
 - Cleaned CSV and Parquet exports in `data/w1d3_cleaned_india_life_expectancy.csv` and `data/w1d3_cleaned_india_life_expectancy.parquet`
 - Notebook execution that stays runnable with an offline fallback dataset
 
+## W2D4 Included Work
+
+- One-cell, executed notebook at `week2_Notebooks/w2d4.ipynb`
+- Stratified train/test holdout with overlap and class-balance checks
+- Five-fold stratified cross-validation with leakage-safe scaling pipeline
+- MLflow run metrics plus committed CSV/JSON evidence in `outputs/w2d4_validation/`
+- CIA Full Stack Mentor review notes recorded in the notebook comments
+
 ## Git branch
 
 - `feat/aiml-W1-venky`
