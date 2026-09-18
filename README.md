@@ -42,6 +42,13 @@ python -m venv .venv
 - MLflow run metrics plus committed CSV/JSON evidence in `outputs/w2d4_validation/`
 - CIA Full Stack Mentor review notes recorded in the notebook comments
 
+## Week 2 End-to-End Preprocessing Project
+
+- Leakage-safe Titanic preprocessing and Logistic Regression pipeline in `src/w2_preprocessing_pipeline.py`
+- Schema validation, median/mode imputation, scaling, one-hot encoding, and reproducible stratified holdout
+- MLflow SQLite metrics/artifact logging plus committed JSON/CSV/model evidence in `outputs/w2_preprocessing/`
+- Test coverage in `tests/test_w2_preprocessing_pipeline.py` and delivery/review notes in `docs/w2_preprocessing_report.md`
+
 ## Git branch
 
 - `feat/aiml-W1-venky`
