@@ -5,4 +5,5 @@ __pycache__/
 .DS_Store
 outputs/w2d3_smote/
 outputs/w2d4_validation/mlflow.db
+outputs/w2_preprocessing/mlflow.db
 week2_Notebooks/mlruns/
