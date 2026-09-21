@@ -1,0 +1,4 @@
+{
+  "best_model_by_rmse": "Lasso (alpha=0.1)",
+  "random_state": 42
+}
