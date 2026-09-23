@@ -95,13 +95,15 @@ def load_split(random_state: int = RANDOM_STATE) -> tuple[pd.DataFrame, pd.DataF
     # Request the explicit tuple form. This avoids ambiguous Bunch typing in
     # editors while retaining labelled DataFrame/Series inputs for the plots.
     X, y = load_breast_cancer(return_X_y=True, as_frame=True)
-    return train_test_split(
+    split = train_test_split(
         pd.DataFrame(X),
         pd.Series(y),
         test_size=0.2,
         stratify=y,
         random_state=random_state,
     )
+    X_train, X_test, y_train, y_test = split
+    return pd.DataFrame(X_train), pd.DataFrame(X_test), pd.Series(y_train), pd.Series(y_test)
 
 
 def evaluate(model: Any, X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series) -> dict[str, float]:
@@ -109,10 +111,10 @@ def evaluate(model: Any, X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: p
     model.fit(X_train, y_train)
     test_probability = model.predict_proba(X_test)[:, 1]
     return {
-        "train_accuracy": accuracy_score(y_train, model.predict(X_train)),
-        "test_accuracy": accuracy_score(y_test, model.predict(X_test)),
-        "test_f1": f1_score(y_test, model.predict(X_test)),
-        "test_roc_auc": roc_auc_score(y_test, test_probability),
+        "train_accuracy": float(accuracy_score(y_train, model.predict(X_train))),
+        "test_accuracy": float(accuracy_score(y_test, model.predict(X_test))),
+        "test_f1": float(f1_score(y_test, model.predict(X_test))),
+        "test_roc_auc": float(roc_auc_score(y_test, test_probability)),
     }
 
 
