@@ -8,6 +8,7 @@ the generated artifacts so the experiment can be reproduced or promoted later.
 from __future__ import annotations
 
 import json
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +16,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import mlflow
 import numpy as np
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
@@ -26,6 +26,45 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 
 RANDOM_STATE = 42
 DEFAULT_OUTPUT_DIR = Path("outputs/w3d3_decision_trees")
+
+
+def log_to_mlflow(
+    output_dir: Path,
+    tree_parameters: dict[str, Any],
+    forest_parameters: dict[str, Any],
+    baseline_metrics: dict[str, float],
+    tuned_tree_metrics: dict[str, float],
+    forest_metrics: dict[str, float],
+    artifacts: tuple[Path, ...],
+) -> bool:
+    """Record evidence in MLflow without making training depend on its import.
+
+    A notebook kernel can retain a partially imported third-party module after
+    an interrupted run.  Delaying the MLflow import lets the core exercise run
+    and provides an actionable warning instead of masking model results.
+    """
+    try:
+        import mlflow
+
+        mlflow.set_tracking_uri((output_dir / "mlruns").resolve().as_uri())
+        mlflow.set_experiment("w3d3_decision_trees")
+        with mlflow.start_run(run_name="tree-and-forest-tuning"):
+            mlflow.log_params({f"tree_{key}": value for key, value in tree_parameters.items()})
+            mlflow.log_params({f"forest_{key}": value for key, value in forest_parameters.items()})
+            mlflow.log_metrics({f"baseline_{key}": value for key, value in baseline_metrics.items()})
+            mlflow.log_metrics({f"tuned_tree_{key}": value for key, value in tuned_tree_metrics.items()})
+            mlflow.log_metrics({f"forest_{key}": value for key, value in forest_metrics.items()})
+            for artifact in artifacts:
+                mlflow.log_artifact(str(artifact), artifact_path="evidence")
+    except (AttributeError, ImportError) as error:
+        warnings.warn(
+            f"MLflow tracking was skipped because MLflow could not initialise: {error}. "
+            "Restart the notebook kernel and run the cells again to enable tracking.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+        return False
+    return True
 
 
 def gini_impurity(class_counts: list[int] | np.ndarray) -> float:
@@ -142,18 +181,15 @@ def run_experiment(output_dir: Path | str = DEFAULT_OUTPUT_DIR, track_mlflow: bo
     (output_dir / "metrics.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     if track_mlflow:
-        mlflow.set_tracking_uri((output_dir / "mlruns").resolve().as_uri())
-        mlflow.set_experiment("w3d3_decision_trees")
-        with mlflow.start_run(run_name="tree-and-forest-tuning"):
-            mlflow.log_params({f"tree_{key}": value for key, value in tree_search.best_params_.items()})
-            mlflow.log_params({f"forest_{key}": value for key, value in forest_search.best_params_.items()})
-            mlflow.log_metrics({f"baseline_{key}": value for key, value in baseline_metrics.items()})
-            mlflow.log_metrics({f"tuned_tree_{key}": value for key, value in tuned_tree_metrics.items()})
-            mlflow.log_metrics({f"forest_{key}": value for key, value in forest_metrics.items()})
-            # Log only the evidence files. Logging the output directory itself would
-            # include MLflow's tracking store and could recursively copy artifacts.
-            for artifact in (tree_path, importance_path, output_dir / "tree_cv_results.csv", output_dir / "metrics.json"):
-                mlflow.log_artifact(str(artifact), artifact_path="evidence")
+        log_to_mlflow(
+            output_dir,
+            tree_search.best_params_,
+            forest_search.best_params_,
+            baseline_metrics,
+            tuned_tree_metrics,
+            forest_metrics,
+            (tree_path, importance_path, output_dir / "tree_cv_results.csv", output_dir / "metrics.json"),
+        )
     return summary
 
 
