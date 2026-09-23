@@ -8,4 +8,5 @@ outputs/w2d4_validation/mlflow.db
 outputs/w2_preprocessing/mlflow.db
 outputs/w3d1_linear_regression/mlflow.db
 outputs/w3d3_decision_trees/mlruns/
+outputs/w3d3_decision_trees/mlflow.db
 week2_Notebooks/mlruns/

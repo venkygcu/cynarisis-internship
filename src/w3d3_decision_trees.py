@@ -46,7 +46,9 @@ def log_to_mlflow(
     try:
         import mlflow
 
-        mlflow.set_tracking_uri((output_dir / "mlruns").resolve().as_uri())
+        # MLflow 3 no longer writes to the legacy filesystem tracking store.
+        database_path = (output_dir / "mlflow.db").resolve().as_posix()
+        mlflow.set_tracking_uri(f"sqlite:///{database_path}")
         mlflow.set_experiment("w3d3_decision_trees")
         with mlflow.start_run(run_name="tree-and-forest-tuning"):
             mlflow.log_params({f"tree_{key}": value for key, value in tree_parameters.items()})
@@ -56,10 +58,9 @@ def log_to_mlflow(
             mlflow.log_metrics({f"forest_{key}": value for key, value in forest_metrics.items()})
             for artifact in artifacts:
                 mlflow.log_artifact(str(artifact), artifact_path="evidence")
-    except (AttributeError, ImportError) as error:
+    except Exception as error:
         warnings.warn(
-            f"MLflow tracking was skipped because MLflow could not initialise: {error}. "
-            "Restart the notebook kernel and run the cells again to enable tracking.",
+            f"MLflow tracking was skipped: {error}. Model metrics and plots were still saved locally.",
             RuntimeWarning,
             stacklevel=2,
         )
