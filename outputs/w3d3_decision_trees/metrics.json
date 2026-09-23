@@ -1,0 +1,33 @@
+{
+  "baseline_tree": {
+    "train_accuracy": 1.0,
+    "test_accuracy": 0.9122807017543859,
+    "test_f1": 0.9285714285714286,
+    "test_roc_auc": 0.9156746031746031
+  },
+  "tuned_tree": {
+    "train_accuracy": 0.9626373626373627,
+    "test_accuracy": 0.9473684210526315,
+    "test_f1": 0.9583333333333334,
+    "test_roc_auc": 0.9679232804232805,
+    "best_cv_roc_auc": 0.967389060887513,
+    "parameters": {
+      "criterion": "gini",
+      "max_depth": 4,
+      "min_samples_leaf": 10
+    }
+  },
+  "random_forest": {
+    "train_accuracy": 0.9868131868131869,
+    "test_accuracy": 0.956140350877193,
+    "test_f1": 0.9655172413793104,
+    "test_roc_auc": 0.9940476190476191,
+    "best_cv_roc_auc": 0.9899380804953559,
+    "parameters": {
+      "max_depth": 6,
+      "min_samples_leaf": 3,
+      "n_estimators": 100
+    }
+  },
+  "overfit_gap_reduction": 0.07245035666088295
+}
