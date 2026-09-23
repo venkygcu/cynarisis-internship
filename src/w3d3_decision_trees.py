@@ -92,12 +92,14 @@ def information_gain(
 
 def load_split(random_state: int = RANDOM_STATE) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Load the breast-cancer data and create a stratified 80/20 holdout."""
-    dataset = load_breast_cancer(as_frame=True)
+    # Request the explicit tuple form. This avoids ambiguous Bunch typing in
+    # editors while retaining labelled DataFrame/Series inputs for the plots.
+    X, y = load_breast_cancer(return_X_y=True, as_frame=True)
     return train_test_split(
-        dataset.data,
-        dataset.target,
+        pd.DataFrame(X),
+        pd.Series(y),
         test_size=0.2,
-        stratify=dataset.target,
+        stratify=y,
         random_state=random_state,
     )
 
