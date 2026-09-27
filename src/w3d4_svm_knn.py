@@ -97,8 +97,23 @@ def run_experiment(output_dir: Path | str = DEFAULT_OUTPUT_DIR, track_mlflow: bo
     winner = max(results, key=lambda name: results[name]["metrics"]["test_roc_auc"])
     best_model = searches[winner][0].set_params(**results[winner]["parameters"])
     best_model.fit(X_train, y_train)
-    importance = permutation_importance(best_model, X_test, y_test, scoring="roc_auc", n_repeats=10, random_state=RANDOM_STATE, n_jobs=1)
-    importance_frame = pd.DataFrame({"feature": X_test.columns, "importance_mean": importance.importances_mean, "importance_std": importance.importances_std}).sort_values("importance_mean", ascending=False)
+    importance_by_metric = permutation_importance(
+        best_model,
+        X_test,
+        y_test,
+        scoring={"roc_auc": "roc_auc"},
+        n_repeats=10,
+        random_state=RANDOM_STATE,
+        n_jobs=1,
+    )
+    roc_auc_importance = importance_by_metric["roc_auc"]
+    importance_frame = pd.DataFrame(
+        {
+            "feature": X_test.columns,
+            "importance_mean": roc_auc_importance["importances_mean"],
+            "importance_std": roc_auc_importance["importances_std"],
+        }
+    ).sort_values("importance_mean", ascending=False)
     importance_path = output_dir / "permutation_importance.csv"
     importance_frame.to_csv(importance_path, index=False)
     figure, axis = plt.subplots(figsize=(8, 5))
