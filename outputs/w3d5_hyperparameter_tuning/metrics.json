@@ -1,0 +1,78 @@
+{
+  "dataset": "sklearn breast cancer",
+  "random_state": 42,
+  "holdout_fraction": 0.2,
+  "cv_folds": 5,
+  "random_search_iterations": 10,
+  "selection_metric": "best 5-fold CV ROC-AUC",
+  "recommended_experiment": "svm_grid",
+  "results": {
+    "svm_grid": {
+      "model": "svm",
+      "search_method": "grid",
+      "candidate_count": 15,
+      "parameters": {
+        "model__C": 10,
+        "model__gamma": "scale",
+        "model__kernel": "rbf"
+      },
+      "best_cv_roc_auc": 0.9945304437564498,
+      "metrics": {
+        "train_accuracy": 0.9934065934065934,
+        "test_accuracy": 0.9736842105263158,
+        "test_f1": 0.9790209790209791,
+        "test_roc_auc": 0.9957010582010581
+      }
+    },
+    "svm_random": {
+      "model": "svm",
+      "search_method": "random",
+      "candidate_count": 10,
+      "parameters": {
+        "model__C": 0.14618962793704965,
+        "model__kernel": "linear"
+      },
+      "best_cv_roc_auc": 0.9933952528379774,
+      "metrics": {
+        "train_accuracy": 0.9868131868131869,
+        "test_accuracy": 0.9824561403508771,
+        "test_f1": 0.9861111111111112,
+        "test_roc_auc": 0.9940476190476191
+      }
+    },
+    "knn_grid": {
+      "model": "knn",
+      "search_method": "grid",
+      "candidate_count": 28,
+      "parameters": {
+        "model__n_neighbors": 9,
+        "model__p": 2,
+        "model__weights": "distance"
+      },
+      "best_cv_roc_auc": 0.9930340557275542,
+      "metrics": {
+        "train_accuracy": 1.0,
+        "test_accuracy": 0.9736842105263158,
+        "test_f1": 0.9795918367346939,
+        "test_roc_auc": 0.9933862433862434
+      }
+    },
+    "knn_random": {
+      "model": "knn",
+      "search_method": "random",
+      "candidate_count": 10,
+      "parameters": {
+        "model__weights": "uniform",
+        "model__p": 2,
+        "model__n_neighbors": 21
+      },
+      "best_cv_roc_auc": 0.9920536635706915,
+      "metrics": {
+        "train_accuracy": 0.9648351648351648,
+        "test_accuracy": 0.9649122807017544,
+        "test_f1": 0.972972972972973,
+        "test_roc_auc": 0.9925595238095238
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "dataset": "sklearn breast cancer",
+  "random_state": 42,
+  "holdout_fraction": 0.2,
+  "results": {
+    "svm": {
+      "parameters": {
+        "model__C": 10,
+        "model__gamma": "scale",
+        "model__kernel": "rbf"
+      },
+      "best_cv_roc_auc": 0.9945304437564498,
+      "metrics": {
+        "train_accuracy": 0.9934065934065934,
+        "test_accuracy": 0.9736842105263158,
+        "test_f1": 0.9790209790209791,
+        "test_roc_auc": 0.9957010582010581
+      }
+    },
+    "knn": {
+      "parameters": {
+        "model__n_neighbors": 9,
+        "model__p": 2,
+        "model__weights": "distance"
+      },
+      "best_cv_roc_auc": 0.9930340557275542,
+      "metrics": {
+        "train_accuracy": 1.0,
+        "test_accuracy": 0.9736842105263158,
+        "test_f1": 0.9795918367346939,
+        "test_roc_auc": 0.9933862433862434
+      }
+    }
+  },
+  "importance_model": "svm",
+  "top_features": [
+    {
+      "feature": "worst smoothness",
+      "importance_mean": 0.010648148148148106,
+      "importance_std": 0.002847757955239549
+    },
+    {
+      "feature": "worst texture",
+      "importance_mean": 0.008465608465608388,
+      "importance_std": 0.004370086914466129
+    },
+    {
+      "feature": "worst perimeter",
+      "importance_mean": 0.006977513227513143,
+      "importance_std": 0.004954692577954153
+    },
+    {
+      "feature": "worst area",
+      "importance_mean": 0.006911375661375585,
+      "importance_std": 0.005430635256738663
+    },
+    {
+      "feature": "worst radius",
+      "importance_mean": 0.005952380952380876,
+      "importance_std": 0.004808069145152342
+    },
+    {
+      "feature": "mean concavity",
+      "importance_mean": 0.0040013227513227,
+      "importance_std": 0.0021197580040393385
+    },
+    {
+      "feature": "worst concave points",
+      "importance_mean": 0.0039021164021163512,
+      "importance_std": 0.0022467311840559667
+    },
+    {
+      "feature": "mean concave points",
+      "importance_mean": 0.003902116402116318,
+      "importance_std": 0.002500139969766652
+    },
+    {
+      "feature": "radius error",
+      "importance_mean": 0.0038359788359787926,
+      "importance_std": 0.0026463292359447978
+    },
+    {
+      "feature": "area error",
+      "importance_mean": 0.0030092592592592003,
+      "importance_std": 0.0028997005011822717
+    }
+  ]
+}
