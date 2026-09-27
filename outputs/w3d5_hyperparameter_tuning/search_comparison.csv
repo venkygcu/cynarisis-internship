@@ -1,0 +1,5 @@
+experiment,model,search_method,candidate_count,best_cv_roc_auc,train_accuracy,test_accuracy,test_f1,test_roc_auc,parameters
+svm_grid,svm,grid,15,0.9945304437564498,0.9934065934065934,0.9736842105263158,0.9790209790209791,0.9957010582010581,"{""model__C"": 10, ""model__gamma"": ""scale"", ""model__kernel"": ""rbf""}"
+svm_random,svm,random,10,0.9933952528379774,0.9868131868131869,0.9824561403508771,0.9861111111111112,0.9940476190476191,"{""model__C"": 0.14618962793704965, ""model__kernel"": ""linear""}"
+knn_grid,knn,grid,28,0.9930340557275542,1.0,0.9736842105263158,0.9795918367346939,0.9933862433862434,"{""model__n_neighbors"": 9, ""model__p"": 2, ""model__weights"": ""distance""}"
+knn_random,knn,random,10,0.9920536635706915,0.9648351648351648,0.9649122807017544,0.972972972972973,0.9925595238095238,"{""model__n_neighbors"": 21, ""model__p"": 2, ""model__weights"": ""uniform""}"
