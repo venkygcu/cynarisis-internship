@@ -11,3 +11,4 @@ outputs/w3d3_decision_trees/mlruns/
 outputs/w3d3_decision_trees/mlflow.db
 week2_Notebooks/mlruns/
 outputs/w3d4_svm_knn/mlflow.db
+outputs/w3d5_hyperparameter_tuning/mlflow.db
