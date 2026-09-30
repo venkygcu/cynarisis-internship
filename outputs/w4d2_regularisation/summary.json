@@ -1,0 +1,11 @@
+{
+  "selected_search": "GridSearchCV",
+  "best_params": {
+    "logisticregression__C": 0.1,
+    "logisticregression__l1_ratio": 1.0,
+    "logisticregression__solver": "saga"
+  },
+  "best_cv_auc": 0.8497159688617714,
+  "holdout_auc": 0.8605241233053094,
+  "grid_train_validation_gap": 0.007773469232544961
+}

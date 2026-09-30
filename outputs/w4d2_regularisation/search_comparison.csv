@@ -1,0 +1,3 @@
+search,best_cv_auc,train_auc,best_params
+GridSearchCV,0.8497159688617714,0.8574894380943163,"{'logisticregression__C': 0.1, 'logisticregression__l1_ratio': 1.0, 'logisticregression__solver': 'saga'}"
+RandomizedSearchCV,0.8476541131916685,0.8597287588464205,"{'logisticregression__C': np.float64(3.4702669886504163), 'logisticregression__l1_ratio': 1.0, 'logisticregression__solver': 'saga'}"
