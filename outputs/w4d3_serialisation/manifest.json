@@ -1,0 +1,35 @@
+{
+  "model_type": "StandardScaler + LogisticRegression",
+  "random_seed": 42,
+  "python_note": "Load pickle/joblib artifacts only from trusted sources.",
+  "versions": {
+    "scikit_learn": "1.9.1",
+    "joblib": "1.6.0"
+  },
+  "artifacts": {
+    "breast_cancer_pipeline.joblib": {
+      "bytes": 1814,
+      "sha256": "b3c59b51b68c937b07922f5eb7c3883ad74ca9ccb34b04fb92e124dcc95f0021"
+    },
+    "breast_cancer_pipeline.pkl": {
+      "bytes": 2026,
+      "sha256": "84e3cd4f2f59826e90837a45ff2535a542e8f798947b5e9fafd38d67c3d453ab"
+    }
+  },
+  "metrics": {
+    "accuracy": 0.986013986013986,
+    "precision": 0.9888888888888889,
+    "recall": 0.9888888888888889,
+    "roc_auc": 0.9976939203354298,
+    "confusion_matrix": [
+      [
+        52,
+        1
+      ],
+      [
+        1,
+        89
+      ]
+    ]
+  }
+}
