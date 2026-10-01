@@ -1,0 +1,39 @@
+{
+  "api": {
+    "title": "W4D4 Breast Cancer Model API",
+    "version": "1.0.0",
+    "routes": [
+      "GET /health",
+      "POST /predict"
+    ]
+  },
+  "model": "breast_cancer_pipeline.joblib",
+  "model_sha256": "b3c59b51b68c937b07922f5eb7c3883ad74ca9ccb34b04fb92e124dcc95f0021",
+  "input_feature_count": 30,
+  "classes": [
+    "malignant",
+    "benign"
+  ],
+  "versions": {
+    "scikit_learn": "1.9.1",
+    "fastapi": "0.141.1",
+    "mlflow": "3.16.0"
+  },
+  "metrics": {
+    "accuracy": 0.986013986013986,
+    "precision": 0.9888888888888889,
+    "recall": 0.9888888888888889,
+    "roc_auc": 0.9976939203354298
+  },
+  "api_checks": {
+    "health_status": 200,
+    "prediction_status": 200,
+    "wrong_feature_count_status": 422,
+    "sample_prediction": {
+      "prediction": 1,
+      "label": "benign",
+      "probability": 0.9689820231344328
+    }
+  },
+  "mlflow_run_id": "57080aa212e84156b73b371769ae90fd"
+}
