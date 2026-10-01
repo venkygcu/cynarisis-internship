@@ -1,0 +1,4 @@
+check,status
+health,200
+valid_prediction,200
+wrong_feature_count,422
